@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css}">
+  <!-- My CSS -->
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+  <title>Spring Security Sample</title>
+</head>
+
+<body class="bg-light">
+  <!-- コンテナ -->
+  <main class="d-flex vh-100 text-center justify-content-center main-content">
+    <!-- フォーム -->
+    <form th:action="@{/login}" method="post" class="login-form">
+      <!-- 見出し -->
+      <h1 class="h1 fw-normal mb-4">ログイン</h1>
+      <!-- ログインエラーメッセージ -->
+      <div class="mb-3">
+        <small class="text-danger" th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+          th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></small>
+      </div>
+      <!-- ユーザーID -->
+      <div class="form-floating">
+        <input type="email" name="userId" id="userId" class="form-control login-form__user-id" placeholder="ユーザーID" required>
+        <label for="userId">ユーザーID</label>
+      </div>
+      <!-- パスワード -->
+      <div class="form-floating">
+        <input type="password" name="password" id="password" class="form-control login-form__password" placeholder="パスワード" required>
+        <label for="password">パスワード</label>
+      </div>
+      <!-- ログインボタン -->
+      <button type="submit" class="btn btn-primary w-100 mt-3 login-form__login-button">ログイン</button>
+    </form>
+  </main>
+
+  <!-- Bootstrap -->
+  <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

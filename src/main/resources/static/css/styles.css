@@ -1,0 +1,24 @@
+.main-content {
+	padding-top: calc(100vh / 6);
+}
+
+.login-form {
+	width: 310px;
+}
+
+.login-form__user-id {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.login-form__password {
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+
+.login-form__login-button {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: 1.1rem;
+}
