@@ -29,10 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final UserDetailsService userDetailsService;
 
 	/**
-	 * パスワードの暗号化用に、bcrypt（ビー・クリプト）エンコーダを取得。
+	 * パスワードの暗号化用に、BCrypt（ビー・クリプト）エンコーダを取得。
 	 * <p>Spring Securityのログイン認証はパスワードの暗号化必須。
 	 *
-	 * @return bcryptエンコーダ
+	 * @return BCryptエンコーダ
 	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
