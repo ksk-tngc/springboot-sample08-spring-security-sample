@@ -46,12 +46,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		// セキュリティを適用しない
 		// WebJarsやCSSなどの静的リソース、H2 Databaseのコンソールはログイン認証せずにアクセス可能としておく。
+		// 通常、cssやjs、imgなどの静的リソースを指定する。
 		web.ignoring()
 				.antMatchers("/webjars/**")
 				.antMatchers("/css/**")
 				.antMatchers("/js/**")
 				.antMatchers("/h2-console/**");
 //				.anyRequest(); // MEMO: この設定を行うと一時的に全てのURLをセキュリティ対象外にできる
+
+		// 以下のように同時指定も可
+		// web.ignoring() // セキュリティを無視
+		// 		.antMatchers("/css/**", "/js/**", "/img/**", "/webjars/**");
+
 	}
 
 	/**
@@ -72,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.failureUrl("/login?error") // ログイン失敗時の遷移先
 				.usernameParameter("userId") // ログインページのユーザーIDのname属性
 				.passwordParameter("password") // ログインページのパスワードのname属性
-				.defaultSuccessUrl("/login/success", true); // 成功時の遷移先
+				.defaultSuccessUrl("/login/success", true); // 成功時の遷移先（認証後にリダイレクトするパス）
 
 		// ログアウト処理の設定
 		// Spring Securityがログアウト処理を行ってくれるためログアウト用のコントローラは不要
@@ -96,11 +102,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.inMemoryAuthentication()
 				.withUser("user01@example.com") // ユーザを追加
 				.password(passwordEncoder.encode("pass")) // パスワード設定（Spring Securityではパスワードの暗号化必須）
-				.roles("GENERAL") // ロール設定
+				// .authorities("ROLE_GENERAL") // 権限設定（こちらは"ROLE_"を付ける必要あり）
+				.roles("GENERAL") // ロール設定（"ROLE_"は省略可）
 				.and() // andで繋ぐ
 				.withUser("admin@example.com") // ユーザを追加
 				.password(passwordEncoder.encode("pass")) // パスワード設定（Spring Securityではパスワードの暗号化必須）
-				.roles("ADMIN"); // ロール設定
+				// .authorities("ROLE_ADMIN") // 権限設定（こちらは"ROLE_"を付ける必要あり）
+				.roles("ADMIN"); // ロール設定（"ROLE_"は省略可）
 
 		// ユーザマスタの情報で認証
 		auth
